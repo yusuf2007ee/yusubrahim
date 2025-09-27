@@ -3,61 +3,118 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dr. Yusuf Ibrahim - Senior Lecturer</title>
+  <title>Dr. Yusuf Ibrahim - Computational Linguist</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <header class="hero">
-    <div class="container">
-      <div class="profile-card">
-        <img src="images/dr-yusuf.jpg" alt="Dr. Yusuf Ibrahim" class="profile-img"/>
-        <div class="text-block">
-          <h1>Dr. Yusuf Ibrahim</h1>
-          <h3>Senior Lecturer, Computer Engineering</h3>
-          <p>Ahmadu Bello University, Zaria, Nigeria</p>
-          <button id="darkModeToggle">🌙 Toggle Dark Mode</button>
+  <div class="container">
+    <!-- Profile Header -->
+    <header class="profile-header">
+      <img src="images/dr-yusuf.jpg" alt="Dr. Yusuf Ibrahim" class="profile-img"/>
+      <div class="profile-info">
+        <h1>Dr. Yusuf Ibrahim</h1>
+        <p class="title">Computational Linguist & NLP Researcher</p>
+        <p class="affiliation">Ahmadu Bello University, Zaria</p>
+        <div class="contact">
+          <p><i class="fas fa-envelope"></i> yibrahim@abu.edu.ng</p>
+          <p><i class="fas fa-phone"></i> +2347037627128</p>
         </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <main>
-    <section class="section about container">
-      <h2>About Me</h2>
-      <p>
-        I am a dedicated academic and researcher in Computer Engineering at Ahmadu Bello University, Zaria.
-        My work focuses on integrating Artificial Intelligence, IoT, and embedded systems to solve real-world problems.
-        I am passionate about mentoring students and contributing to Africa’s digital future.
-      </p>
-    </section>
-
-    <section class="section research container">
-      <h2>Research Interests</h2>
-      <div class="grid">
-        <div class="card">Artificial Intelligence</div>
-        <div class="card">Machine Learning</div>
-        <div class="card">Computer Vision</div>
-        <div class="card">Natural Language Processing</div>
-        <div class="card">Digital Image Processing</div>
+    <!-- Expertise -->
+    <section class="section">
+      <h2><i class="fas fa-star"></i> Expertise</h2>
+      <div class="expertise-grid">
+        <div class="expertise-item">
+          <i class="fas fa-language"></i>
+          <span>Natural Language Processing</span>
+        </div>
+        <div class="expertise-item">
+          <i class="fas fa-microphone"></i>
+          <span>Speech Technologies (ASR/TTS)</span>
+        </div>
+        <div class="expertise-item">
+          <i class="fas fa-globe-africa"></i>
+          <span>Low-Resource Languages</span>
+        </div>
+        <div class="expertise-item">
+          <i class="fas fa-robot"></i>
+          <span>Large Language Models</span>
+        </div>
+        <div class="expertise-item">
+          <i class="fas fa-database"></i>
+          <span>Data Curation</span>
+        </div>
+        <div class="expertise-item">
+          <i class="fas fa-code"></i>
+          <span>Python & Hugging Face</span>
+        </div>
       </div>
     </section>
 
-    <section class="section contact container">
-      <h2>Contact</h2>
-      <p><strong>Email:</strong> yibrahim@abu.edu.ng</p>
-      <p><strong>Office:</strong> Dept. of Computer Engineering, ABU Zaria</p>
-      <a href="cv.pdf" download class="btn">📄 Download CV</a>
+    <!-- Research Interests -->
+    <section class="section">
+      <h2><i class="fas fa-search"></i> Research Interests</h2>
+      <div class="interests">
+        <span class="interest-tag">NLP for African Languages</span>
+        <span class="interest-tag">Speech Technology</span>
+        <span class="interest-tag">Low-Resource ML</span>
+        <span class="interest-tag">AI for Social Good</span>
+        <span class="interest-tag">Ethical AI</span>
+        <span class="interest-tag">Multimodal Systems</span>
+      </div>
     </section>
-  </main>
 
-  <footer>
-    <p>© <span id="year"></span> Dr. Yusuf Ibrahim | Ahmadu Bello University</p>
-  </footer>
+    <!-- Education -->
+    <section class="section">
+      <h2><i class="fas fa-graduation-cap"></i> Education</h2>
+      <div class="education-item">
+        <h3>Ph.D. in Computer Engineering</h3>
+        <p class="institution">Ahmadu Bello University, Zaria</p>
+        <p class="duration">2017 - 2019 | Distinction</p>
+      </div>
+      <div class="education-item">
+        <h3>M.Sc. in Computer Engineering</h3>
+        <p class="institution">Ahmadu Bello University, Zaria</p>
+        <p class="duration">2013 - 2017 | Distinction</p>
+      </div>
+      <div class="education-item">
+        <h3>B.Eng. in Electrical Engineering</h3>
+        <p class="institution">Ahmadu Bello University, Zaria</p>
+        <p class="duration">2006 - 2011 | First Class Honours</p>
+      </div>
+    </section>
 
-  <script src="script.js"></script>
+    <!-- Key Links -->
+    <section class="section">
+      <h2><i class="fas fa-link"></i> Profiles & Links</h2>
+      <div class="links-grid">
+        <a href="https://scholar.google.com/citations?user=GIboxCkAAAAJ&hl=en" class="link-item" target="_blank">
+          <i class="fas fa-graduation-cap"></i>
+          <span>Google Scholar</span>
+        </a>
+        <a href="https://orcid.org/0000-0003-1942-4826" class="link-item" target="_blank">
+          <i class="fab fa-orcid"></i>
+          <span>ORCID</span>
+        </a>
+        <a href="Dr_Yusuf_Ibrahim_CV.pdf" class="link-item" download>
+          <i class="fas fa-file-pdf"></i>
+          <span>Download CV</span>
+        </a>
+        <a href="mailto:yibrahim@abu.edu.ng" class="link-item">
+          <i class="fas fa-envelope"></i>
+          <span>Email</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2024 Dr. Yusuf Ibrahim. Computational Linguistics Researcher.</p>
+    </footer>
+  </div>
 </body>
 </html>
-
-
