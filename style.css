@@ -237,3 +237,45 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* Add these to your existing style.css */
+
+/* Smooth transitions for all interactive elements */
+.expertise-item, .link-item, .interest-tag {
+    transition: all 0.3s ease;
+}
+
+/* Ensure sections are ready for animation */
+.section {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Enhanced hover effects for interest tags */
+.interest-tag:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+}
+
+/* Loading state for download button */
+a[download] {
+    transition: opacity 0.3s ease;
+}
+
+/* Print styles for better printing */
+@media print {
+    .container {
+        box-shadow: none;
+        max-width: 100%;
+    }
+    
+    .profile-header {
+        background: #667eea !important;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    .link-item {
+        background: #f7fafc !important;
+        -webkit-print-color-adjust: exact;
+    }
+}
