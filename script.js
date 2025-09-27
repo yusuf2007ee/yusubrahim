@@ -1,114 +1,104 @@
-// Simple elegant interactions for the website
+// script.js — interactions: smooth scroll, menu toggle, theme, reveal animations, CV download handler
 
-// Wait for the DOM to load
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Dr. Yusuf Ibrahim - Computational Linguist website loaded');
-    
-    // Add subtle animation to profile image on load
-    const profileImg = document.querySelector('.profile-img');
-    if (profileImg) {
-        profileImg.style.opacity = '0';
-        profileImg.style.transform = 'scale(0.9)';
-        
-        setTimeout(() => {
-            profileImg.style.transition = 'all 0.6s ease';
-            profileImg.style.opacity = '1';
-            profileImg.style.transform = 'scale(1)';
-        }, 100);
+document.addEventListener('DOMContentLoaded', () => {
+  // Elements
+  const navList = document.getElementById('nav-list');
+  const menuToggle = document.getElementById('menu-toggle');
+  const themeToggle = document.getElementById('theme-toggle');
+  const downloadCv = document.getElementById('download-cv');
+  const yearSpan = document.getElementById('year');
+
+  // Set current year
+  if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+
+  // Mobile menu toggle
+  if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+      const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', String(!expanded));
+      // Toggle visibility based on computed style for robustness
+      if (window.getComputedStyle(navList).display === 'none') {
+        navList.style.display = 'flex';
+      } else {
+        navList.style.display = 'none';
+      }
+    });
+  }
+
+  // Smooth scrolling for internal links
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (!href || href === '#') return;
+      if (href.startsWith('#')) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({behavior: 'smooth', block: 'start'});
+          // close mobile menu if open
+          if (window.innerWidth < 720 && window.getComputedStyle(navList).display === 'flex') {
+            navList.style.display = 'none';
+            if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+          }
+        }
+      }
+    });
+  });
+
+  // Theme toggle (light/dark) persisted to localStorage
+  const THEME_KEY = 'pref-theme';
+  const applyTheme = (theme) => {
+    if (theme === 'dark') document.body.classList.add('dark');
+    else document.body.classList.remove('dark');
+    if (themeToggle) themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
+    if (themeToggle) themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+  };
+  const saved = localStorage.getItem(THEME_KEY);
+  if (saved) applyTheme(saved);
+  else {
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(prefersDark ? 'dark' : 'light');
+  }
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.body.classList.toggle('dark');
+      localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
+      themeToggle.setAttribute('aria-pressed', String(isDark));
+      themeToggle.textContent = isDark ? '☀️' : '🌙';
+    });
+  }
+
+  // Download CV handler (keeps path relative)
+  if (downloadCv) {
+    downloadCv.addEventListener('click', () => {
+      // Analytics hook or console log
+      console.info('CV download initiated');
+      // default anchor with download attribute will handle the file saving
+    });
+  }
+
+  // IntersectionObserver for reveal animations
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {threshold: 0.12});
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    // fallback
+    revealEls.forEach(el => el.classList.add('in-view'));
+  }
+
+  // simple keyboard accessibility: close nav on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && window.innerWidth < 720) {
+      navList.style.display = 'none';
+      if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
     }
-    
-    // Add hover effects to expertise items
-    const expertiseItems = document.querySelectorAll('.expertise-item');
-    expertiseItems.forEach(item => {
-        item.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-2px)';
-            this.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.15)';
-        });
-        
-        item.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-            this.style.boxShadow = 'none';
-        });
-    });
-    
-    // Add hover effects to link items
-    const linkItems = document.querySelectorAll('.link-item');
-    linkItems.forEach(link => {
-        link.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateX(5px)';
-        });
-        
-        link.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateX(0)';
-        });
-    });
-    
-    // Add subtle animation to sections when they come into view
-    const sections = document.querySelectorAll('.section');
-    
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const sectionObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-    
-    // Set initial state for sections
-    sections.forEach(section => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(20px)';
-        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        sectionObserver.observe(section);
-    });
-    
-    // Smooth scroll for anchor links (if we add any in the future)
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-    
-    // Add current year to footer
-    const currentYear = new Date().getFullYear();
-    const yearElement = document.querySelector('footer p');
-    if (yearElement) {
-        yearElement.innerHTML = yearElement.innerHTML.replace('2024', currentYear);
-    }
-    
-    // Add loading animation for PDF download
-    const downloadBtn = document.querySelector('a[download]');
-    if (downloadBtn) {
-        downloadBtn.addEventListener('click', function(e) {
-            // Add a small delay to show the download has started
-            this.style.opacity = '0.7';
-            setTimeout(() => {
-                this.style.opacity = '1';
-            }, 1000);
-        });
-    }
+  });
 });
-
-// Add a simple console greeting
-console.log(`
-%cDr. Yusuf Ibrahim - Computational Linguist
-%cSpecializing in NLP for Low-Resource Languages
-%cyibrahim@abu.edu.ng | +2347037627128
-`, 
-'color: #667eea; font-size: 16px; font-weight: bold;',
-'color: #4a5568; font-size: 14px;',
-'color: #718096; font-size: 12px;'
-);
